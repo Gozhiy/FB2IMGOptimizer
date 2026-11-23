@@ -23,13 +23,14 @@ var
   PercArea: integer;
 const
   help =
-  'The program replaces groups of images containing identical graphics with a single instance—the one that best matches the majority. ' +#13#10 +
-  'example of execution: FB2IMGCheck.exe -fi <FileFB2> -fo <FileFB2^> -fr <FileReport> -D <distantion> -p <PercArea>' +#13#10 +
-  '-FI - fileInput' +#13#10 +
-  '-FO - FileOutput  default - "fileInput^.fb2"' +#13#10 +
-  '-FR - FileReport  default - "Report.txt"'+#13#10 +
-  '-D  - Distantion  default - 14 (distance between file hashes)'+#13#10 +
-  '-p  - PercArea    default - 40 (Percentage of file area difference)';
+  'FB2IMGOptimizer.exe [InputFile] [-fi <InputFile>] [-fo <OutputFile>] [-fr <ReportFile>] [-D <Distance>] [-p <PercArea>]' +#13#10#13#10 +
+  ' InputFile  Input FB2 file. Can be specified as the first argument without the -fi switch.' + #13#10 +
+  '-fi  Explicitly specifies the input FB2 file' +#13#10 +
+  '-fo  Output FB2 file (Default: input filename with "_optimized" suffix)  ' +#13#10 +
+  '-fr  Report file (default: Report.txt) ' +#13#10 +
+  '-D   Maximum distance between image hashes (default: 14)  ' +#13#10 +
+  '-p   Maximum percentage difference in image area (default: 40)' ;
+
    procedure GetParams;
    var
      s,s1:string;
@@ -67,7 +68,7 @@ const
       begin
        fileOut:= fileIn;
        fileOut:= copy(filein,1,length(filein)-4);
-       fileOut:= fileOut +'^.fb2';
+       fileOut:= fileOut +'_optimized.fb2';
       end;
       if FileRep='' then
       begin
